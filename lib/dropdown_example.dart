@@ -40,10 +40,16 @@ class _DropdownExampleState extends State<DropdownExample> {
               }).toList(),
               onChanged: (String? selectedCity) {
                 setState(() {
-                  Data.selectedCity = selectedCity;
-                  Data.areas = Data.sectors[selectedCity!]!;
-                  Data.selectedSector = null;
-                  Data.selectedShop = null;
+                  try {
+                    Data.selectedCity = selectedCity;
+                    Data.areas = Data.sectors[selectedCity!]!;
+                    Data.selectedSector = null;
+                    Data.selectedShop = null;
+                  } catch (e) {
+                    Data.selectedShop = null;
+                    Data.selectedCity = null;
+                    Data.selectedSector = null;
+                  }
                 });
               },
             ),
@@ -64,9 +70,15 @@ class _DropdownExampleState extends State<DropdownExample> {
               }).toList(),
               onChanged: (String? selectedSector) {
                 setState(() {
-                  Data.selectedSector = selectedSector;
-                  Data.shopAreas = Data.shops[selectedSector]!;
-                  Data.selectedShop = null;
+                  try {
+                    Data.selectedSector = selectedSector;
+                    Data.shopAreas = Data.shops[selectedSector]!;
+                    Data.selectedShop = null;
+                  } catch (e) {
+                    Data.selectedShop = null;
+                    Data.selectedCity = null;
+                    Data.selectedSector = null;
+                  }
                 });
               },
             ),
@@ -86,7 +98,16 @@ class _DropdownExampleState extends State<DropdownExample> {
                 );
               }).toList(),
               onChanged: (String? selectedShop) {
-                setState(() {});
+                setState(() {
+                  try {
+                    Data.selectedShop = selectedShop;
+                    // Data.shopAreas = Data.shops[selectedShop]!;
+                  } catch (e) {
+                    Data.selectedShop = null;
+                    Data.selectedCity = null;
+                    Data.selectedSector = null;
+                  }
+                });
               },
             ),
 // ----------------------
